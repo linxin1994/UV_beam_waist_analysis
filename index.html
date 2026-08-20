@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Private, browser-only UV beam-waist analysis" />
+    <title>UV beam-waist analysis</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="hero">
+      <div class="hero__content">
+        <p class="eyebrow">Browser-only scientific tool</p>
+        <h1>UV beam-waist analysis</h1>
+        <p class="lede">Fit camera images to a robust rotated elliptical Gaussian. Your images stay on this computer; all calculations run locally in this browser.</p>
+        <div class="privacy-pill"><span class="privacy-dot"></span>No image upload to a server</div>
+      </div>
+    </header>
+
+    <main class="layout">
+      <section class="panel controls" aria-labelledby="settings-title">
+        <div class="section-heading">
+          <div><p class="step">01</p><h2 id="settings-title">Choose images and calibration</h2></div>
+          <span id="runtime-badge" class="badge badge--loading">Loading analysis engine…</span>
+        </div>
+        <div class="control-grid">
+          <label class="upload-zone" for="image-files" id="upload-zone">
+            <input id="image-files" type="file" accept=".png,.jpg,.jpeg,.tif,.tiff,.bmp,image/*" multiple />
+            <span class="upload-icon">↑</span>
+            <strong>Choose beam-profile images</strong>
+            <span>PNG, JPEG, TIFF, or BMP · multiple files allowed</span>
+            <span id="file-summary" class="file-summary">No images selected</span>
+          </label>
+          <div class="settings-stack">
+            <label for="pixel-size">
+              <span>Pixel size</span>
+              <span class="input-with-unit"><input id="pixel-size" type="number" value="5.0" min="0.000001" step="0.1" /><span>µm / pixel</span></span>
+              <small>Default matches the notebook camera calibration.</small>
+            </label>
+            <details>
+              <summary>Advanced fit settings</summary>
+              <div class="advanced-grid">
+                <label for="roi-half-width">ROI half-width (pixels)<input id="roi-half-width" type="number" value="300" min="10" step="10" /></label>
+                <label for="fit-stride">Fit stride (pixels)<input id="fit-stride" type="number" value="3" min="1" step="1" /></label>
+                <label for="smoothing-sigma">Peak smoothing (pixels)<input id="smoothing-sigma" type="number" value="10" min="0" step="1" /></label>
+              </div>
+            </details>
+            <button id="analyze-button" class="primary-button" type="button" disabled>Analyze selected images</button>
+          </div>
+        </div>
+        <div id="status" class="status" role="status" aria-live="polite">The first visit downloads the scientific Python runtime. This can take a moment.</div>
+      </section>
+
+      <section id="results-section" class="panel results hidden" aria-labelledby="results-title">
+        <div class="section-heading">
+          <div><p class="step">02</p><h2 id="results-title">Fit summary</h2></div>
+          <button id="download-csv" class="secondary-button" type="button">Download CSV</button>
+        </div>
+        <div class="table-wrap"><table id="summary-table"></table></div>
+        <div id="error-list" class="error-list"></div>
+      </section>
+
+      <section id="diagnostics-section" class="diagnostics hidden" aria-labelledby="diagnostics-title">
+        <div class="section-heading diagnostics-heading"><div><p class="step">03</p><h2 id="diagnostics-title">Diagnostics</h2></div></div>
+        <div id="diagnostic-cards" class="diagnostic-cards"></div>
+      </section>
+
+      <aside class="method-note"><strong>Interpretation note.</strong> Reported major and minor waists are principal-axis 1/e² intensity radii at the camera plane. They represent a propagation minimum only when the camera is located at that minimum. Formal fit uncertainties are statistical only.</aside>
+    </main>
+    <footer>Robust rotated-Gaussian fit with planar background · powered locally by Python and WebAssembly</footer>
+    <script src="app.js" defer></script>
+  </body>
+</html>
