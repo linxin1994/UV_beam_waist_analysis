@@ -9,7 +9,7 @@ async function initialize() {
   importScripts(`${PYODIDE_BASE}pyodide.js`);
   pyodide = await loadPyodide({ indexURL: PYODIDE_BASE });
   self.postMessage({ type: "status", message: "Loading NumPy, SciPy, Pillow, and Matplotlib…" });
-  await pyodide.loadPackage(["numpy", "scipy", "Pillow", "matplotlib"]);
+  await pyodide.loadPackage(["numpy", "scipy", "pillow", "matplotlib"]);
   const [analysisResponse, apiResponse] = await Promise.all([fetch("beam_analysis.py"), fetch("web_api.py")]);
   if (!analysisResponse.ok || !apiResponse.ok) throw new Error("Could not load the local analysis code.");
   pyodide.FS.writeFile("/home/pyodide/beam_analysis.py", await analysisResponse.text(), { encoding: "utf8" });
