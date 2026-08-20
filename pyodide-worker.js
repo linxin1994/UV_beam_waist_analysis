@@ -1,11 +1,10 @@
-"use strict";
+import { loadPyodide } from "./vendor/pyodide/pyodide.mjs";
 
 const PYODIDE_BASE = new URL("./vendor/pyodide/", self.location.href).href;
 let pyodide;
 
 async function initialize() {
   self.postMessage({ type: "status", message: "Downloading the browser Python runtime…" });
-  importScripts(`${PYODIDE_BASE}pyodide.js`);
   pyodide = await loadPyodide({ indexURL: PYODIDE_BASE });
   self.postMessage({ type: "status", message: "Loading NumPy, SciPy, Pillow, and Matplotlib…" });
   await pyodide.loadPackage(["numpy", "scipy", "pillow", "matplotlib"]);

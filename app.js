@@ -13,7 +13,7 @@ const el = {
 let runtimeReady = false;
 let analyzing = false;
 let latestRows = [];
-const worker = new Worker("pyodide-worker.js?v=self-hosted-1");
+const worker = new Worker("pyodide-worker.js?v=module-worker-1", { type: "module" });
 
 function updateButton() {
   el.analyze.disabled = !runtimeReady || analyzing || el.files.files.length === 0;
