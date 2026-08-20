@@ -19,9 +19,10 @@ cd apps/uv_beam_waist
 python -m http.server 8000
 ```
 
-Open `http://localhost:8000`. The first visit downloads Pyodide and the NumPy,
-SciPy, Pillow, and Matplotlib browser packages from jsDelivr. A modern browser
-and an internet connection are therefore required on first load.
+Open `http://localhost:8000`. A deployed copy must also include the vendored
+Pyodide runtime under `vendor/pyodide`. The first visit downloads that runtime
+and the NumPy, SciPy, Pillow, and Matplotlib browser packages from the same web
+origin. A modern browser is required.
 
 ## Publish it as a URL
 

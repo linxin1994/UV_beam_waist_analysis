@@ -1,7 +1,6 @@
 "use strict";
 
-const PYODIDE_VERSION = "314.0.3";
-const PYODIDE_BASE = `https://cdn.jsdelivr.net/pyodide/v${PYODIDE_VERSION}/full/`;
+const PYODIDE_BASE = new URL("./vendor/pyodide/", self.location.href).href;
 let pyodide;
 
 async function initialize() {
